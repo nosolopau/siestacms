@@ -32,4 +32,4 @@ $ make clean
 
 ## Acknowledgements
 
-- Thanks to great amaysim Australia's great Docker solution for Serverless: https://github.com/amaysim-au/docker-serverless. Pretty cool stuff :)
+- Thanks to great @maysim-au for their great solution for Serverless & Docker: https://github.com/amaysim-au/docker-serverless. Pretty cool stuff :)
