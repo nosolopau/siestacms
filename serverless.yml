@@ -1,0 +1,17 @@
+service: amaysim-apigw-example
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${env:AWS_REGION}
+  stage: ${env:ENV}
+plugins:
+  - serverless-offline
+functions:
+  app:
+    handler: src/index.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+custom:
+  serverless-offline:
+    noPrependStageInUrl: true      

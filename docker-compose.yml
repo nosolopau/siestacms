@@ -1,0 +1,9 @@
+---
+version: "3.8"
+services:
+  serverless:
+    image: nosolopau/docker-serverless:2.8.0
+    env_file: ${ENVFILE:-.env}
+    volumes:
+    - ~/.aws:/root/.aws
+    - .:/opt/app
