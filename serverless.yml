@@ -1,4 +1,4 @@
-service: amaysim-apigw-example
+service: nosolopau-lasiestaamericana
 provider:
   name: aws
   runtime: nodejs12.x
