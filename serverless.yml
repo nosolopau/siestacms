@@ -3,9 +3,10 @@ provider:
   name: aws
   runtime: nodejs12.x
   region: ${env:AWS_REGION}
-  stage: ${env:ENV}
+  stage: ${opt:stage, env:ENV, 'dev'}
 plugins:
   - serverless-offline
+  - serverless-domain-manager
 functions:
   app:
     handler: src/index.handler
@@ -14,4 +15,12 @@ functions:
       - http: 'ANY {proxy+}'
 custom:
   serverless-offline:
-    noPrependStageInUrl: true      
+    noPrependStageInUrl: true
+  customDomain:
+    domainName: ${self:provider.stage}.lasiestaamericana.com
+    certificateName: '*.lasiestaamericana.com'
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: false
+    endpointType: 'regional'
+    autoDomain: false

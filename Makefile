@@ -47,11 +47,17 @@ _build:
 	cd $(PACKAGE_DIR) && yarn install --production --no-bin-links
 	cd $(PACKAGE_DIR) && zip -rq ../package .
 
-deploy: $(ENVFILE_TARGET) $(ARTIFACT_PATH)
+deploy-dev: $(ENVFILE_TARGET) $(ARTIFACT_PATH)
 	$(SERVERLESS_RUN) make _deploy
 
-_deploy:
-	sls deploy -v
+_deploy-dev:
+	sls deploy -v --stage=dev
+
+deploy-prod: $(ENVFILE_TARGET) $(ARTIFACT_PATH)
+	$(SERVERLESS_RUN) make _deploy-prod
+
+_deploy-prod:
+	sls deploy -v --stage=prod
 
 remove: $(ENVFILE_TARGET)
 	$(SERVERLESS_RUN) make _remove
