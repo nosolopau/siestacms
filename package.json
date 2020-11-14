@@ -1,8 +1,8 @@
 {
-  "name": "amaysim-serverless-apigw-example",
+  "name": "nosolopau-lasiestaamericana",
   "version": "0.1.0",
-  "description": "Amaysim way to do Serverless",
-  "author": "Frederic Lemay",
+  "description": "Serverless app for lasiestaamericana.com",
+  "author": "Pablo Torrecilla",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -11,6 +11,7 @@
     "@babel/preset-env": "^7.9.5",
     "@babel/register": "^7.9.0",
     "mocha": "^7.1.1",
+    "serverless-domain-manager": "^5.1.0",
     "serverless-offline": "^6.8.0"
   },
   "dependencies": {
