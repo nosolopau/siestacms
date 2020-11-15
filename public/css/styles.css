@@ -12,6 +12,43 @@ img {
     width: 100%;
 }
 
+h1, h2, h3 {
+    font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    letter-spacing: -2px;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.7em;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 0;
+}
+
+h3 {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+tt{
+    background-color: #eee;
+}
+
+pre {
+    overflow-x: scroll;
+    background-color: #eee;
+    padding: 1.6em 0 2em;
+    border-radius: 10px;
+}
+
+footer {
+    margin-top: 4em;
+    text-align: center;
+}
+
 a:hover {
     background-color: #333332;
     color: #fff;
@@ -31,94 +68,37 @@ div.text a:hover {
     background-color: #333332;
 }
 
-div.subscribe-box {
-    background-color: #efefef;
-    padding: 20px 30px;
-    border-radius: 10px;
-}
-
-div.subscribe-box h3 {
-    padding: 0;
-    margin: 0 0 20px;
-}
-
-.post p.date, footer {
+div.post p.date, footer {
     color: #888;
     font-size: 0.8em;
 }
 
-.post div.text {
-    margin-top:2em;
-}
-
-h1, h2, h3 {
-    font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
-    font-weight: bold;
-    letter-spacing: -2px;
-}
-
-h1 {
-    font-size: 2.5em;
-    margin-bottom: 0.7em;
-}
-
-h2 {
-    font-size: 2em;
-    margin-bottom: 0;
-}
-
-h3 {
-    font-size: 1.8em;
-    margin-bottom: 0.5em;
+div.post {
+    margin-top:3em;
 }
 
 span.siesta {
     color: #c00;
 }
 
-form#mc-embedded-subscribe-form {
-    padding: 0;
-}
-
-div#mce-responsess {
-    margin: 0;
-}
-
-#mc_embed_signup div.response {
-    font: normal;
-}
-
-#mc_embed_signup .button {
-    background-color: #333332;
-}
-
-#mc_embed_signup h3 {
-    padding: 5px 0;
-    margin: 0;
-}
-
-footer {
-    text-align: center;
-}
-
 @media only screen and (min-width: 600px) {
     h1 {
-        font-size: 3.5em;
+        font-size: 3em;
         margin-bottom: 1em;
     }
 
     h2 {
-        font-size: 2.8em;
+        font-size: 2.2em;
         margin-bottom: 0;
     }
     
     h3 {
-        font-size: 2em;
+        font-size: 1.8em;
         margin-bottom: 1em;
     }
      
-    main, footer {
-        margin: 150px auto 1em auto;
+    main, footer, header {
+        margin: 100px auto 1em auto;
         max-width: 700px;
         width: 100%;
     }

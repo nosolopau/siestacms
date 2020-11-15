@@ -2,19 +2,13 @@
 <html>
   <head>
     <%- include('partials/header'); %>
-
-    <% if (typeof(post) !== 'undefined') { %>
-        <meta property="og:title" content="<%= post.title %>" />
-        <meta property="og:image" content="<%= post.image %>" />
-        <meta property="og:description" content="<%= post.summary %>" />
-    <% } %>
   </head>
   <body>
+    <header>
+      <h1><a href="/"><span class="siesta">Siesta</span>CMS</a></h1>
+      <div>A lightweight, deadly simple, database free, serverless CMS written in 70 lines of JavaScript, 40 lines of HTML, and 100 lines of CSS</div>
+    </header>
     <main>
-      <div class="site-header">
-        <h1 class="site-title"><a href="/">La<span class="siesta">siesta</span>americana</a></h1>
-      </div>
-
       <%- body %>
     </main>
     <footer>

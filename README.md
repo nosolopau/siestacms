@@ -1,4 +1,6 @@
-# My deadly simple CMS for lasiestaamericana.com
+# Siesta CMS
+
+A file based, deadly simple CMS for lazy people
 
 ## Pre-requisites
 

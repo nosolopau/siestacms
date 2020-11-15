@@ -1,0 +1,32 @@
+<head>
+    <title>How to use it</title>
+    <date>11/14/2020</date>
+    <summary>How to manage content with SiestaCMS.</summary>
+    <image></image>
+</head>
+<body>
+    <p>SiestaCMS is a database free CMS. This means that the content is managed by editing XML files with a specific format.</p>
+    <p>Posts are XML files sitting in the <tt>/post</tt> folder. Files have HTML extension to make things even simpler, but they also include some metadata for each post</p>
+    <h3>Files format</h3>
+    <p>A SiestaCMS post file contains 2 main sections: <strong>header</strong> and <strong>body</strong>.</p>
+    <h4>Header</h4>
+    <p>The header contains these fields:</p>
+    <ul>
+        <li><tt>title</tt>: Title of the post (string)</li>
+        <li><tt>date</tt>: Date of the post (currently, ab unformatted string does the trick)</li>
+        <li><tt>summary</tt>: A summary (string) that will be used in the index</li>
+        <li><tt>image</tt>: An image URL that can be used in the template (for example, to complete metadata for social networks)</li>
+    </ul>
+    <h4>Body</h4>
+    <p>The body contains the HTML code for the post. It's not parsed or validated. For example, an example based on this same page:</p>
+    <pre>
+    &lt;head&gt;
+        &lt;title&gt;How to use it&lt;/title&gt;
+        &lt;date&gt;11/14/2020&lt;/date&gt;
+        &lt;summary&gt;How to manage content with SiestaCMS.&lt;/summary&gt;
+        &lt;image&gt;&lt;/image&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;SiestaCMS is a database free CMS.&lt;/p&gt;
+    &lt;/body&gt;</pre>
+</body>

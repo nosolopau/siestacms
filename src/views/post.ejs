@@ -1,14 +1,7 @@
-<div class="subscribe-box">
-    <h3>Suscríbete</h3>
-    <%- include('partials/subscribe-form'); %>
-</div>
 <div class="post">
-    <h2><a href="/articles/elecciones-en-eeuu-la-boda-gitana-de-la-democracia.html"><%= post.title %></a></h2>
+    <h2><a href="/posts/<%= post.file %>"><%= post.title %></a></h2>
     <p class="date"><%= post.date %></p>
     <div class="text">
         <%- post.body %>
     </div>
 </div>
-<h2>Suscríbete</h2>
-<p>Si te ha interesado, suscríbete para no perderte ningún artículo:</p>
-<%- include('partials/subscribe-form'); %>

@@ -38,13 +38,9 @@ app.get('/posts/:file', (req, res) => {
     }
 })
 
-app.get('/articles/:file', (req, res) => {
-    res.redirect('/posts/' + req.params.file)
-})
-
 function loadPost(file){
     var rawPostData = fs.readFileSync(postsFolder + file).toString();
-    return new Post(file, parser.parse(rawPostData));
+    return new Post(file, parser.parse(rawPostData, {stopNodes: "body"}));
 }
 
 function handleError(e, res) {
