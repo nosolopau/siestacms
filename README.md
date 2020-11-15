@@ -10,7 +10,7 @@ A lightweight, simple, database free, serverless CMS for lazy people.
   
 Environment variables can be defined inside your shell session using `export VAR=value` or setting them in `.env` file. See `env.example` for more information.
 
-## Usage
+## How to install it
 
 Create .env file based on .env.example:
 
@@ -36,7 +36,7 @@ Clean your folder
 
     $ make clean
 
-## How to use the CMS
+## How to use it
 
 1. Create a new file (for example with name `my-post.html`) under `/posts` with this structure:
 
