@@ -59,12 +59,6 @@ deploy-prod: $(ENVFILE_TARGET) $(ARTIFACT_PATH)
 _deploy-prod:
 	sls deploy -v --stage=prod
 
-remove: $(ENVFILE_TARGET)
-	$(SERVERLESS_RUN) make _remove
-
-_remove:
-	sls remove -v
-
 shell: $(ENVFILE_TARGET)
 	$(SERVERLESS_RUN) bash
 
