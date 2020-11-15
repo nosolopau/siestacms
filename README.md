@@ -1,6 +1,6 @@
-# Siesta CMS
+# SiestaCMS
 
-A file based, deadly simple CMS for lazy people
+A lightweight, simple, database free, serverless CMS for lazy people.
 
 ## Pre-requisites
 
@@ -47,9 +47,7 @@ Clean your folder
             <image></image>
         </head>
         <body format="html">
-            <![CDATA[
-                <p>This is my first paragraph.</p>
-            ]]>
+            <p>This is my first paragraph.</p>
         </body>
 2. Deploy the service.
 3. The post will appear in the index page and under `/posts/my-post.html`
