@@ -34,6 +34,24 @@ Clean your folder
 
     $ make clean
 
+## How to use the CMS
+
+1. Create a new file (for example with name `my-post.html`) under `/posts` with this structure:
+
+        <head>
+            <title>Hey! This is a new post</title>
+            <date>01/01/2020</date>
+            <summary>This summary will appear in the index</summary>
+            <image></image>
+        </head>
+        <body format="html">
+            <![CDATA[
+                <p>This is my first paragraph.</p>
+            ]]>
+        </body>
+2. Deploy the service.
+3. The post will appear in the index page and under `/posts/my-post.html`
+4. Done!
 
 ## Acknowledgements
 
