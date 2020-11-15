@@ -6,29 +6,34 @@
 - Docker Compose
 - AWS credentials in ~/.aws or environment variables
   
-Environment variables can be defined inside your shell session using `export VAR=value` or setting them in .env file. See `.env.template` for more information.
+Environment variables can be defined inside your shell session using `export VAR=value` or setting them in `.env` file. See `env.example` for more information.
 
 ## Usage
 
-```bash
-# Create .env file based on .env.example
-$ make envfile DOTENV=.env.example
+Create .env file based on .env.example:
 
-# Install dependencies
-$ make deps
+    $ make envfile ENVFILE=env.example
 
-# Test
-$ make test
+Install dependencies:
 
-# Build
-$ make build
+    $ make deps
 
-# Deploy to AWS
-$ make deploy
+Test:
 
-# Clean your folder
-$ make clean
-```
+    $ make test
+
+Build:
+
+    $ make build
+
+Deploy to AWS (dev stage):
+
+    $ make deploy-dev
+
+Clean your folder
+
+    $ make clean
+
 
 ## Acknowledgements
 
