@@ -1,5 +1,5 @@
 SERVERLESS_RUN = docker-compose run --rm serverless 
-SERVERLESS_OFFLINE_RUN = docker-compose run -p 3000:3000 --rm serverless 
+SERVERLESS_RUN_WITH_PORT = docker-compose run -p 3000:3000 --rm serverless 
 PACKAGE_DIR = package/package
 ARTIFACT_NAME = package.zip
 ARTIFACT_PATH = package/$(ARTIFACT_NAME)
@@ -18,10 +18,10 @@ envfile:
 	ENVFILE=$(ENVFILE) $(SERVERLESS_RUN) cp $(ENVFILE) .env
 
 server:
-	$(SERVERLESS_OFFLINE_RUN) make _server
+	$(SERVERLESS_RUN_WITH_PORT) make _server
 
 _server:
-	serverless offline --host 0.0.0.0
+	sls offline --host 0.0.0.0
 
 deps: $(ENVFILE_TARGET)
 	$(SERVERLESS_RUN) make _deps
@@ -60,7 +60,7 @@ _deploy-prod:
 	sls deploy -v --stage=prod
 
 shell: $(ENVFILE_TARGET)
-	$(SERVERLESS_RUN) bash
+	$(SERVERLESS_RUN_WITH_PORT) bash
 
 clean: $(ENVFILE_TARGET)
 	$(SERVERLESS_RUN) make _clean
