@@ -1,9 +1,12 @@
-service: nosolopau-lasiestaamericana
+service: nosolopau-siestacms
 provider:
   name: aws
   runtime: nodejs12.x
   region: ${env:AWS_REGION}
   stage: ${opt:stage, env:ENV, 'dev'}
+  environment:
+    USE_S3: true
+    POSTS_S3_BUCKET: siestacms-posts-${self:provider.stage}
 plugins:
   - serverless-offline
   - serverless-domain-manager
@@ -17,10 +20,10 @@ custom:
   serverless-offline:
     noPrependStageInUrl: true
   customDomain:
-    domainName: ${self:provider.stage}.lasiestaamericana.com
-    certificateName: '*.lasiestaamericana.com'
+    domainName: ${self:provider.stage}.siestacms.com
+    certificateName: '*.siestacms.com'
     basePath: ''
     stage: ${self:provider.stage}
-    createRoute53Record: false
+    createRoute53Record: true
     endpointType: 'regional'
     autoDomain: false
