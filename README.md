@@ -46,12 +46,17 @@ Clean your folder
             <summary>This summary will appear in the index</summary>
             <image></image>
         </head>
-        <body format="html">
+        <body>
             <p>This is my first paragraph.</p>
         </body>
 2. Deploy the service.
 3. The post will appear in the index page and under `/posts/my-post.html`
 4. Done!
+
+## How to use it with S3
+
+1. Create a bucket: `aws s3api create-bucket --bucket siestacms-posts-prod`
+2. Push the files: `aws s3 sync posts s3://siestacms-posts-dev`
 
 ## Acknowledgements
 
