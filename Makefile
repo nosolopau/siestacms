@@ -48,7 +48,7 @@ _build:
 	cd $(PACKAGE_DIR) && zip -rq ../package .
 
 deploy-dev: $(ENVFILE_TARGET) $(ARTIFACT_PATH)
-	$(SERVERLESS_RUN) make _deploy
+	$(SERVERLESS_RUN) make _deploy-dev
 
 _deploy-dev:
 	sls deploy -v --stage=dev
