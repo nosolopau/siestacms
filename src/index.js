@@ -21,23 +21,22 @@ const Post = require("./models/post.js");
 
 app.get('/', async (req, res, next) => {
     try {
-        loadPosts().then((posts) => {
-            res.render('index', {posts: posts, layout: 'layout'});
-        });
+        const posts = await loadPosts();
+        res.render('index', {posts: posts, layout: 'layout'});
     } catch (e) {
+        console.error(e);
+
         return next(e);
     }
 })
 
 app.get('/posts/:file', async (req, res, next) => {
     try {
-        loadPost(req.params.file).then((post) => {
-            res.render('post', {post: post, layout: 'layout'})
-        });
+        const post = await loadPost(req.params.file)
+        res.render('post', {post: post, layout: 'layout'})
     }
     catch (e) {
-        // handleError(e, res);
-        return next(e);
+        handlePostNotFoundError(e, res);
     }
 })
 
@@ -64,11 +63,11 @@ async function loadPosts() {
 }
 
 async function loadPost(file){
-    if(process.env.USE_S3 == "true") {
+    if (process.env.USE_S3 == "true") {
         return await loadPostFromS3(file);
     } 
     else {
-        return loadPostFromFile(file);
+        return await loadPostFromFile(file);
     }
 }
 
@@ -86,16 +85,18 @@ async function loadPostFromS3(objectKey) {
         let rawPostData = await s3.getObject(params).promise();
         return new Post(objectKey, parser.parse(rawPostData.Body.toString('utf-8'), {stopNodes: "body"}));
     } catch (e) {
-        console.log(`Could not retrieve file from S3: ${e.message}`)
+        console.error(`Could not retrieve file from S3: ${e.message}`);
+        throw(e);
     }
 }
 
-function handleError(e, res) {
-    let code = 500
-
+function handlePostNotFoundError(e, res) {
+    console.error(e);
+    
+    let code = 500;
     switch (e.code) {
         case 'ENOENT':
-            code = 404
+            code = 404;
             break;
     }
 
@@ -105,14 +106,13 @@ function handleError(e, res) {
 async function getFilesRecursively(param) {
     let result = await s3.listObjectsV2(param).promise();
 
-    if(!result.IsTruncated) {
+    if (!result.IsTruncated) {
         return result.Contents;
     } else {
         param.ContinuationToken = result.NextContinuationToken;
         return result.Contents.concat(await getFilesRecursively(param));
     }
 }
-
 
 module.exports.handler = serverless(app);
 
