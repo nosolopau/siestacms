@@ -32,7 +32,7 @@ app.get('/', async (req, res, next) => {
 
 app.get('/posts/:file', async (req, res, next) => {
     try {
-        const post = await loadPost(req.params.file)
+        const post = await loadPost(req.params.file);
         res.render('post', {post: post, layout: 'layout'})
     }
     catch (e) {
@@ -115,4 +115,3 @@ async function getFilesRecursively(param) {
 }
 
 module.exports.handler = serverless(app);
-
