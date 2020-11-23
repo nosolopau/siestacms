@@ -1,0 +1,5 @@
+<h2>Error</h2>
+<div class="text">We found an unknown error. <a href="/">Go to the index</a></p>
+<% if (process.env.ENV != 'prod') { %>
+    <pre><%= error.stack %></pre>
+<% } %>

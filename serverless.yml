@@ -7,6 +7,15 @@ provider:
   environment:
     USE_S3: true
     POSTS_S3_BUCKET: ${self:custom.posts-bucket}
+    POSTS_FOLDER: './posts/'
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action: 
+       - 's3:GetObject'
+       - 's3:ListBucket'
+      Resource: 
+        - arn:aws:s3:::${self:custom.posts-bucket}
+        - arn:aws:s3:::${self:custom.posts-bucket}/*
 plugins:
   - serverless-offline
   - serverless-domain-manager
@@ -35,19 +44,3 @@ resources:
       DeletionPolicy: Delete
       Properties:
         BucketName: ${self:custom.posts-bucket}
-    PostsBucketPolicy:
-      Type: 'AWS::S3::BucketPolicy'
-      Properties:
-        PolicyDocument:
-          Statement:
-            - Sid: AllowList
-              Effect: Allow
-              Principal: '*'
-              Action:
-                - 's3:GetObject'
-                - 's3:ListBucket'
-              Resource: 
-                - arn:aws:s3:::${self:custom.posts-bucket}
-                - arn:aws:s3:::${self:custom.posts-bucket}/*
-        Bucket:
-          Ref: PostsBucket
