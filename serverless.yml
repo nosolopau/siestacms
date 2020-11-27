@@ -41,6 +41,6 @@ resources:
   Resources:
     PostsBucket:
       Type: AWS::S3::Bucket
-      DeletionPolicy: Delete
+      DeletionPolicy: Retain
       Properties:
         BucketName: ${self:custom.posts-bucket}
