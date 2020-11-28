@@ -4,6 +4,11 @@ A lightweight, simple, database free, serverless CMS for lazy people.
 
 Project page: [siestacms.com](https://www.siestacms.com)
 
+Related articles:
+
+- [Why did I write a CMS in 2020](https://nosolopau.medium.com/why-did-i-write-a-cms-in-2020-6824ab1c42ca)
+- [How to get a Serverless web app working with your own domain and SSL on AWS, the right way](https://nosolopau.medium.com/how-to-get-a-serverless-web-app-working-with-your-own-domain-and-ssl-on-aws-the-right-way-69d5b138d8c0?source=your_stories_page-------------------------------------)
+
 ## How to install it
 
 Pre-requisites:
