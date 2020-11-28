@@ -2,39 +2,27 @@
 
 A lightweight, simple, database free, serverless CMS for lazy people.
 
-## Pre-requisites
-
-- Docker
-- Docker Compose
-- AWS credentials in ~/.aws or environment variables
-  
-Environment variables can be defined inside your shell session using `export VAR=value` or setting them in `.env` file. See `env.example` for more information.
+Project page: [siestacms.com](https://www.siestacms.com)
 
 ## How to install it
 
-Create .env file based on .env.example:
+Pre-requisites:
 
-    $ make envfile ENVFILE=env.example
+- Docker & Docker Compose
+- AWS credentials in `~/.aws` or environment variables
+  
+Environment variables can be defined inside your shell session using `export VAR=value` or setting them in `.env` file. See `env.example` for more information.
+
 
 Install dependencies:
 
     $ make deps
 
-Test:
+Run locally:
 
-    $ make test
+    $ make server
 
-Build:
-
-    $ make build
-
-Deploy to AWS (dev stage):
-
-    $ make deploy-dev
-
-Clean your folder
-
-    $ make clean
+More info & instructions: [siestacms.com/posts/how-to-install.html](https://www.siestacms.com/posts/how-to-install.html)
 
 ## How to use it
 
@@ -53,10 +41,7 @@ Clean your folder
 3. The post will appear in the index page and under `/posts/my-post.html`
 4. Done!
 
-## How to use it with S3
-
-1. Create a bucket: `aws s3api create-bucket --bucket siestacms-posts-prod`
-2. Push the files: `aws s3 sync posts s3://siestacms-posts-dev`
+More info & customization options: [siestacms.com/posts/how-to-use.html](https://www.siestacms.com/posts/how-to-use.html)
 
 ## Acknowledgements
 
