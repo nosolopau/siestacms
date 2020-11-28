@@ -12,6 +12,7 @@ app.use(expressLayouts);
 
 const FileReaderBuilder = require("./services/fileReaderBuilder.js");
 const PostLoader = require("./services/postLoader.js");
+const PostViewModel = require("./view_models/post.js");
 
 const fileReader = new FileReaderBuilder(process.env).getFileReader();
 const postLoader = new PostLoader(fileReader);
@@ -19,16 +20,20 @@ const postLoader = new PostLoader(fileReader);
 app.get('/', async (req, res, next) => {
     try {
         const posts = await postLoader.getPosts();
-        res.render('index', {posts: posts, layout: 'layout'});
+        const postsView = PostViewModel.fromArray(posts);
+        
+        res.render('index', {posts: postsView, layout: 'layout'});
     } catch (e) {
         handleError(e, res);
     }
 })
 
-app.get('/posts/:file', async (req, res, next) => {
+app.get('/' + process.env.POSTS_PATH + '/:file', async (req, res, next) => {
     try {
         const post = await postLoader.getPost(req.params.file);
-        res.render('post', {post: post, layout: 'layout'})
+        const postView = new PostViewModel(post);
+
+        res.render('post', {post: postView, layout: 'layout'})
     }
     catch (e) {
         handlePostError(e, res);

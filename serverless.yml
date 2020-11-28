@@ -5,17 +5,18 @@ provider:
   region: ${env:AWS_REGION}
   stage: ${opt:stage, env:ENV, 'dev'}
   environment:
-    USE_S3: true
-    POSTS_S3_BUCKET: ${self:custom.posts-bucket}
+    USE_S3: false
+    POSTS_S3_BUCKET: ${self:custom.postsBucket}
     POSTS_FOLDER: './posts/'
+    POSTS_PATH: 'posts'
   iamRoleStatements:
     - Effect: "Allow"
       Action: 
        - 's3:GetObject'
        - 's3:ListBucket'
       Resource: 
-        - arn:aws:s3:::${self:custom.posts-bucket}
-        - arn:aws:s3:::${self:custom.posts-bucket}/*
+        - arn:aws:s3:::${self:custom.postsBucket}
+        - arn:aws:s3:::${self:custom.postsBucket}/*
 plugins:
   - serverless-offline
   - serverless-domain-manager
@@ -26,12 +27,13 @@ functions:
       - http: ANY /
       - http: 'ANY {proxy+}'
 custom:
-  posts-bucket: siestacms-posts-${self:provider.stage}
+  postsBucket: ${self:service}-posts-${self:provider.stage}
+  domain: siestacms.com
   serverless-offline:
     noPrependStageInUrl: true
   customDomain:
-    domainName: ${self:provider.stage}.siestacms.com
-    certificateName: '*.siestacms.com'
+    domainName: ${self:provider.stage}.${self:custom.domain}
+    certificateName: '*.${self:custom.domain}'
     basePath: ''
     stage: ${self:provider.stage}
     createRoute53Record: true
@@ -43,4 +45,4 @@ resources:
       Type: AWS::S3::Bucket
       DeletionPolicy: Retain
       Properties:
-        BucketName: ${self:custom.posts-bucket}
+        BucketName: ${self:custom.postsBucket}
