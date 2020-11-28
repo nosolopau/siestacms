@@ -17,19 +17,17 @@
     <ol>
         <li>Clone the repo with <tt>git clone https://github.com/nosolopau/siestacms</tt>.</li>
         <li>Change to <tt>siestacms</tt> directory with <tt>cd siestacms</tt>.</li>
-        <li>Create an <tt>.env</tt> file manually or by running <tt>make envfile</tt>.</li>
+        <li>Create an <tt>.env</tt> file manually or by running <tt>make envfile ENVFILE=env.example</tt>.</li>
         <li>Install the dependencies: <tt>make deps</tt>.</li>
         <li>Run it locally with: <tt>make server</tt>. A local server will be launched in your port 3000.</li>
         <li>Browse localhost:3000.</li>
     </ol>
-    <h3>Deploy</h3>
-    <p>If you want to deploy your own distribution, you'll need an AWS account configured in your environment file or in your <tt>~/.aws</tt> folder. Then, just run:</p>
-    <pre>
-        make deploy</pre>
-    <p>The Serverless install will run and you'll get the URL for your lambda function</p>
+    <h3>Customize it</h3>
+    <p>Edit <tt>serverless.yml</tt>. At least, change the service name under <tt>service</tt> to use your own.</p>
     <h4>Custom domains</h4>
+    <p>If you want to use a custom domain, configure it in <tt>serverless.yml</tt> under the `custom` section. If you don't want to use it, just comment or remove the configuration for both <tt>custom.domain</tt> and <tt>custom.customDomain</tt>.</p>
     <p>This configuration is a bit tricky so be ready to SUFFER. I didn't include <tt>Make</tt> commands for this purpose as I assume only a few people will need it.</p>
-    <p>To use your own domain, uncomment section <tt>customDomain</tt> in the <tt>serverless.yml</tt> file, and run:</p>
+    <p>To use your own domain, configure it under the sections <tt>custom.domain</tt> and <tt>custom.customDomain</tt> in the <tt>serverless.yml</tt> file, and run:</p>
     <pre>
         make shell</pre>
     <p>This will open a shell inside a Docker container</p>
@@ -38,4 +36,10 @@
         sls create_domain --stage=&lt;STAGE&gt;
         sls deploy --stage=&lt;STAGE&gt;</pre>
     
+    <h3>Deploy</h3>
+    <p>If you want to deploy your own distribution, you'll need an AWS account configured in your environment file or in your <tt>~/.aws</tt> folder. Then, just run:</p>
+    <pre>
+        make deploy</pre>
+    <p>The Serverless install will run and you'll get the URL for your lambda function</p>
+    <p>See more instructions on how to use SiestaCMS under the section <a href="/posts/how-to-use.html">How to use it</a>.</p>
 </body>
