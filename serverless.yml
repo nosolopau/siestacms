@@ -28,9 +28,9 @@ functions:
       - http: 'ANY {proxy+}'
 custom:
   postsBucket: ${self:service}-posts-${self:provider.stage}
-  domain: siestacms.com
   serverless-offline:
     noPrependStageInUrl: true
+  domain: siestacms.com
   customDomain:
     domainName: ${self:provider.stage}.${self:custom.domain}
     certificateName: '*.${self:custom.domain}'
