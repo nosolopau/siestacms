@@ -12,11 +12,11 @@ module.exports = class FileReaderS3 extends FileReader {
         let params = {
             Bucket: this.s3Bucket
         };
-        return this.getFilesRecursively(params);
+        const files = await this.getFilesRecursively(params);
+        return files.filter(file => file.Key.endsWith('.html'));
     }
 
     async getFile(objectKey) {
-        console.dir(objectKey)
         try {
             const params = {
                 Bucket: this.s3Bucket,
@@ -38,7 +38,7 @@ module.exports = class FileReaderS3 extends FileReader {
         let result = await s3.listObjectsV2(param).promise();
     
         if (!result.IsTruncated) {
-            return result.Contents;
+            return result.Contents || [];
         } else {
             param.ContinuationToken = result.NextContinuationToken;
             return result.Contents.concat(await this.getFilesRecursively(param));

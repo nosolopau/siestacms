@@ -1,7 +1,7 @@
-<div class="post">
-    <h2><a href="<%= post.path %>"><%= post.title %></a></h2>
-    <p class="date"><%= post.date %></p>
-    <div class="text">
-        <%- post.body %>
-    </div>
-</div>
+<article class="article wrap">
+  <a class="back-link" href="/#journal"><svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12H4m7-7-7 7 7 7"/></svg> Back to the journal</a>
+  <header class="article-header"><p class="eyebrow">The journal / A little food for thought</p><h1><%= post.title %></h1><p class="article-summary"><%= post.summary %></p><p class="post-meta"><span><%= post.date %></span><span><%= post.readingTime %> min read</span></p></header>
+  <% if (post.image) { %><img class="article-image" src="<%= post.image %>" alt=""><% } %>
+  <div class="prose"><%- post.body %></div>
+  <div class="article-end"><span>Thanks for stopping by.</span><a href="/#journal">More from the journal <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></svg></a></div>
+</article>

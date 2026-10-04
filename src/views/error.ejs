@@ -1,5 +1,2 @@
-<h2>Error</h2>
-<div class="text">We found an unknown error. <a href="/">Go to the index</a></p>
-<% if (process.env.ENV != 'prod') { %>
-    <pre><%= error.stack %></pre>
-<% } %>
+<section class="error-page wrap"><p class="eyebrow">A small detour / <%= code %></p><h1><%= code === 404 ? 'This page took a siesta.' : 'A little hiccup.' %></h1><p><%= code === 404 ? 'We couldn’t find that story. There’s more to discover in the journal.' : 'Something went wrong loading this page. Give it another try in a moment.' %></p><a class="button" href="/">Back home <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></svg></a>
+<% if (process.env.ENV !== 'prod' && code !== 404) { %><pre><%= error.stack %></pre><% } %></section>

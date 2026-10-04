@@ -14,7 +14,11 @@ module.exports = class PostLoader {
             const post = await this.getPost(this.fileReader.getId(file));
             posts.push(post);
         }
-        return posts;
+        return posts.sort((a, b) => {
+            const dateA = Date.parse(a.date) || 0;
+            const dateB = Date.parse(b.date) || 0;
+            return dateB - dateA || a.file.localeCompare(b.file);
+        });
     }
 
     async getPost(id) {

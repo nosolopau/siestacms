@@ -12,7 +12,7 @@ endif
 all: $(ENVFILE_TARGET) deps test build clean
 
 .env:
-	$(MAKE) envfile ENVFILE=env.template
+	$(MAKE) envfile ENVFILE=env.example
 
 envfile:
 	ENVFILE=$(ENVFILE) $(SERVERLESS_RUN) cp $(ENVFILE) .env

@@ -1,10 +1,19 @@
-<% for(let post of posts) { %>
-    <div class="post">
-        <h2><a href="<%= post.path %>"><%= post.title %></a></h2>
-        <p class="date"><%= post.date %></p>
-        <div class="text">
-            <%= post.summary %> <a href="<%= post.path %>">Read more &#8594;</a>
-        </div>
-    </div>        
-<% } %>
-
+<section class="hero wrap">
+  <div class="hero-copy"><p class="eyebrow"><span class="status-dot"></span> Small footprint. Wide-open possibilities.</p><h1>Big ideas.<br>Small CMS.<br><em>Take it easy.</em></h1><p class="hero-description">A home for your words, without the busywork.<br>Just files, a little code, and room to create.</p><a class="button" href="#journal">Explore the journal <span><svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18h12V6"/></svg></span></a><span class="hero-note">No database. No drama.</span></div>
+  <div class="hero-art" aria-hidden="true"><div class="sun"></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="hill hill-back"></div><div class="hill hill-front"></div><span class="art-label">LESS IS A LITTLE MORE.</span><span class="art-number">EST. 2020 / ALWAYS UNCOMPLICATED</span></div>
+</section>
+<section class="principles wrap" aria-label="Our philosophy"><p><span>01 /</span> Files are your CMS.</p><p><span>02 /</span> Your content, your rules.</p><p><span>03 /</span> Built to stay simple.</p></section>
+<section id="journal" class="journal wrap">
+  <div class="journal-heading"><div><p class="eyebrow">Notes from the slow lane</p><h2>The journal<span class="count"><%= posts.length %></span></h2></div><div class="search-control" hidden><label for="search">Find something good</label><input id="search" type="search" placeholder="Search the journal…" autocomplete="off"></div></div>
+  <div class="post-grid">
+  <% posts.forEach((post, index) => { %>
+    <article class="post-card" data-search="<%= (post.title + ' ' + post.summary).toLowerCase() %>">
+      <a class="card-art tone-<%= index % 3 %>" href="<%= post.path %>" tabindex="-1" aria-hidden="true"><% if (post.image) { %><img src="<%= post.image %>" alt="" loading="lazy"><% } else { %><span class="card-shape"></span><span class="card-art-word"><%= index % 2 === 0 ? 'make.' : 'explore.' %></span><% } %></a>
+      <div class="card-content"><p class="post-meta"><span><%= post.date %></span><span><%= post.readingTime %> min read</span></p><h3><a href="<%= post.path %>"><%= post.title %></a></h3><p class="summary"><%= post.summary %></p><a class="read-link" href="<%= post.path %>" aria-label="Read <%= post.title %>">Read the story <span><svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a></div>
+    </article>
+  <% }); %>
+  </div>
+  <p class="empty-state" <%= posts.length ? 'hidden' : '' %>>No stories here yet. Every good thing starts with a blank page.</p>
+  <p id="search-status" class="search-status" aria-live="polite"></p>
+</section>
+<section class="manifesto wrap"><p class="eyebrow">The art of doing less</p><h2>Your next great idea<br>doesn’t need a database.</h2><p>Write a file. Publish a thought. Get back to living.</p><a href="https://github.com/nosolopau/siestacms">Make yourself at home <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></svg></a><span aria-hidden="true" class="manifesto-flower"><svg viewBox="0 0 100 100"><g fill="currentColor"><ellipse cx="50" cy="24" rx="8" ry="22" transform="rotate(0 50 50)"/><ellipse cx="50" cy="24" rx="8" ry="22" transform="rotate(45 50 50)"/><ellipse cx="50" cy="24" rx="8" ry="22" transform="rotate(90 50 50)"/><ellipse cx="50" cy="24" rx="8" ry="22" transform="rotate(135 50 50)"/><ellipse cx="50" cy="24" rx="8" ry="22" transform="rotate(180 50 50)"/><ellipse cx="50" cy="24" rx="8" ry="22" transform="rotate(225 50 50)"/><ellipse cx="50" cy="24" rx="8" ry="22" transform="rotate(270 50 50)"/><ellipse cx="50" cy="24" rx="8" ry="22" transform="rotate(315 50 50)"/></g></svg></span></section>

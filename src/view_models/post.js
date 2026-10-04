@@ -27,8 +27,13 @@ module.exports = class PostViewModel {
         return this.post.date;
     } 
 
+    get readingTime() {
+        const words = String(this.body || '').replace(/<[^>]*>/g, ' ').trim().split(/\s+/).filter(Boolean).length;
+        return Math.max(1, Math.ceil(words / 200));
+    }
+
     get path() {
-        return '/' + process.env.POSTS_PATH + '/' + this.file;
+        return '/' + process.env.POSTS_PATH + '/' + encodeURIComponent(this.file);
     }
 
     static fromArray(posts) {

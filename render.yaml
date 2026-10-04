@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: siestacms-preview
+    runtime: node
+    plan: free
+    repo: https://github.com/nosolopau/siestacms
+    branch: feat/epic-siesta
+    buildCommand: npm ci --omit=dev --ignore-scripts
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: NODE_ENV
+        value: production
+      - key: ENV
+        value: prod
+      - key: USE_S3
+        value: "false"

@@ -1,4 +1,9 @@
-<title>SiestaCMS</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= pageTitle %></title>
+<meta name="description" content="<%= pageDescription %>">
+<meta property="og:title" content="<%= pageTitle %>">
+<meta property="og:description" content="<%= pageDescription %>">
+<meta property="og:type" content="<%= post ? 'article' : 'website' %>">
+<% if (pageImage) { %><meta property="og:image" content="<%= pageImage %>"><% } %>
 <link rel="stylesheet" href="/public/css/styles.css">
