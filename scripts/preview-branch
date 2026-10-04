@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Preview trusted branches only: starting a branch executes its JavaScript.
+branch=${1:?Usage: scripts/preview-branch BRANCH [--remote]}
+repo=$(git -C "$(dirname "$0")" rev-parse --show-toplevel)
+cloudflared=${CLOUDFLARED_BIN:-cloudflared}
+command -v "$cloudflared" >/dev/null || { echo 'Install cloudflared or set CLOUDFLARED_BIN to its executable.' >&2; exit 1; }
+git check-ref-format --branch "$branch" >/dev/null
+if [[ ${2:-} == --remote ]]; then
+    git -C "$repo" fetch origin "refs/heads/$branch"
+    ref=$(git -C "$repo" rev-parse FETCH_HEAD)
+else
+    ref=$(git -C "$repo" rev-parse --verify "refs/heads/$branch^{commit}")
+fi
+state=$(mktemp -d "${TMPDIR:-/tmp}/siestacms-preview.XXXXXX")
+checkout="$state/checkout"
+server_pid=''
+tunnel_pid=''
+cleanup() {
+    [[ -z "$tunnel_pid" ]] || kill "$tunnel_pid" 2>/dev/null || true
+    [[ -z "$server_pid" ]] || kill "$server_pid" 2>/dev/null || true
+    [[ -z "$tunnel_pid" ]] || wait "$tunnel_pid" 2>/dev/null || true
+    [[ -z "$server_pid" ]] || wait "$server_pid" 2>/dev/null || true
+    git -C "$repo" worktree remove --force "$checkout" 2>/dev/null || true
+    rm -rf "$state"
+}
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+git -C "$repo" worktree add --detach "$checkout" "$ref"
+(cd "$checkout" && npm ci --cache "${NPM_CONFIG_CACHE:-/tmp/siestacms-npm-cache}" --omit=dev --ignore-scripts --no-audit --no-fund)
+cat > "$state/runner.cjs" <<'JS'
+const fs = require('fs');
+const path = require('path');
+const Module = require('module');
+const [checkout, ready] = process.argv.slice(2);
+process.chdir(checkout);
+process.env.ENV = 'prod';
+process.env.NODE_ENV = 'production';
+process.env.USE_S3 = 'false';
+process.env.POSTS_FOLDER = path.join(checkout, 'posts') + path.sep;
+process.env.POSTS_PATH = 'posts';
+const filename = path.join(checkout, 'src/index.js');
+const entry = new Module(filename, module);
+entry.filename = filename;
+entry.paths = Module._nodeModulePaths(path.dirname(filename));
+// Both legacy main and newer branches define an Express `app` in src/index.js.
+entry._compile(fs.readFileSync(filename, 'utf8') + '\n;(module.exports.app || app).listen(0, "127.0.0.1", function () { require("fs").writeFileSync(' + JSON.stringify(ready) + ', String(this.address().port)); });\n', filename);
+JS
+node "$state/runner.cjs" "$checkout" "$state/port" > "$state/server.log" 2>&1 &
+server_pid=$!
+for ((attempt=0; attempt<100; attempt++)); do
+    [[ ! -f "$state/port" ]] || break
+    kill -0 "$server_pid" 2>/dev/null || { cat "$state/server.log" >&2; exit 1; }
+    sleep 0.1
+done
+[[ -f "$state/port" ]] || { echo 'Server startup timed out.' >&2; cat "$state/server.log" >&2; exit 1; }
+port=$(cat "$state/port")
+curl --fail --silent --noproxy '*' "http://127.0.0.1:$port/" >/dev/null
+echo "Previewing $branch at commit $ref on localhost:$port"
+echo 'The public URL below lasts until you stop this script (Ctrl+C).'
+"$cloudflared" tunnel --url "http://127.0.0.1:$port" --protocol http2 --no-autoupdate &
+tunnel_pid=$!
+wait "$tunnel_pid"

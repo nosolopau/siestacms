@@ -82,3 +82,23 @@ or create a Web Service with `npm ci --omit=dev --ignore-scripts` as the build
 command and `npm start` as the start command. Use Node.js 22, set `ENV=prod`,
 and leave `USE_S3=false`. Render supplies `PORT`; no AWS credentials are required.
 The preview is public and free instances sleep after inactivity.
+
+## Temporary previews of any branch
+
+Install Node.js 22 and [cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/).
+From this checkout, run:
+
+```sh
+scripts/preview-branch feat/epic-siesta
+scripts/preview-branch main --remote
+```
+
+The first command previews a local branch; `--remote` fetches the current branch
+from GitHub. The script uses a detached worktree and an available local port,
+installs production dependencies, and prints a temporary `trycloudflare.com`
+HTTPS link. It supports the legacy `main` Express entry point as well as this
+branch. No Cloudflare account is needed. Keep the terminal running; Ctrl+C stops
+the server and tunnel and removes the temporary checkout. Your current checkout
+is untouched. Anyone with the link can view it. Only preview trusted branches:
+their server code runs locally. The machine must allow Cloudflare tunnel traffic
+(outbound TCP port 7844); an HTTP-only proxy is insufficient.
